@@ -2,6 +2,7 @@ package com.cos.photogramstart.domain.user;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,10 +27,13 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)//번호 증가 정략이 데이터베이스를 따라간다.
 	private Long id;
 	
+	@Column(length = 20,unique = true)//unique제약조건이 걸려서 아이디 중복시 가입이안된다.
 	private String username;
+	@Column(nullable = false)//null불가능
 	private String password;
-	
+	@Column(nullable = false)//null불가능
 	private String name;
+	@Column(nullable = false)//null불가능
 	private String email;
 	private String website; //웹 사이트
 	private String bio; //자기소개
