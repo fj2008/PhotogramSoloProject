@@ -11,6 +11,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		//현제 서버에서는 csrf토큰을 사용하지 않는다.
+		http.csrf().disable();
 		http.authorizeRequests()
 			.antMatchers("/", "/user/**","/image/**","/subscribe/**","/comment/**").authenticated()
 			.anyRequest().permitAll()

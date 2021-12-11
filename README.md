@@ -13,6 +13,19 @@
 - Spring Web
 - oauth2-client
 
+
+### 현제 프로젝트에서는 요청하는 dto는 Req를 이름에 넣지않았습니다.
+
+## AuthController @Service사용하기
+```
+AuthController에서 AuthService클래스파일을 di(의존성주입)을 시킨다.
+스프링이 IOC컨테이너에 AuthController객체를 생성해서 메모리로드를 할때 조건이 생성자 실행이다.
+스프링입장에서 생성자를 실행하려하는데 생성자 매개변수로AuthService가 들어가 있으면 AuthService를 
+주입해 주기 위해 IOC컨테이너를 찾아다닌다 (없으면 생성자 실행이 안돼서 오류남).
+이때 @Service를 사용해서 AuthService를 ioc에 등록해주고 의존성 주입을 해주는 방식으로 설계했습니다.
+ 
+
+```
 ```xml
 <!-- 시큐리티 태그 라이브러리 -->
 <dependency>
