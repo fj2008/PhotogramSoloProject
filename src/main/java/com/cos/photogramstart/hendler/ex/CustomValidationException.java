@@ -13,7 +13,7 @@ public class CustomValidationException extends RuntimeException{
 	public CustomValidationException(String message,Map<String, String> errorMap) {
 		super(message);//message의 getter는 부모가 들고있다.
 		this.errorMap = errorMap;
-	}
+	}  
 	
 	public Map<String, String> getErrorMap(){
 		return errorMap;

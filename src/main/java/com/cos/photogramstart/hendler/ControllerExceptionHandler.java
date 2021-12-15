@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.photogramstart.hendler.ex.CustomValidationException;
-import com.cos.photogramstart.web.dto.CMRespDto;
+import com.cos.photogramstart.util.Script;
 
 
 @RestController
@@ -17,9 +17,9 @@ public class ControllerExceptionHandler {
 	
 	//RuntimeException이 발동하는 모든 Exception을 이 함수가 가로챈다.
 	@ExceptionHandler(CustomValidationException.class)
-	public CMRespDto<?> validationException(CustomValidationException e) {
+	public String validationException(CustomValidationException e) {
 		
-		return new CMRespDto<Map<String,String>>(-1,e.getMessage(),e.getErrorMap());
+		return Script.back(e.getErrorMap().toString());
 	}
 
 }

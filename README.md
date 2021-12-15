@@ -16,6 +16,33 @@
 
 ### 현제 프로젝트에서는 요청하는 dto는 Req를 이름에 넣지않았습니다.
 
+### 공통응답 DTO(CMResDto),공통응답Script
+```
+유효성검사 때에 응답을 하는 방법을 두가지 방식으로 분기시켰다.
+공통응답 DTO는 개발자가 받기좋은 데이터를 리턴해주고
+공통응답 Script는 사용자가 사용하기 편한 방식을 제공해준다.
+CMRespDto, Script 비교
+1. 클라이언트에게 응답할 때는 Script가 좋다.
+2. Ajax통신 - CMRespDto가 좋다
+3. Android 통신 - CMRespDto
+```
+
+###로그인 SpringSecurity동작원리
+```
+Security에서는 로그인시에 컨트롤러를 따로 만드는것이 아닌 Security에서 관리하게 됩니다..
+
+시큐리티 설정파일
+/auth/siginin이라는 주소가 Post방식으로 요청이될때 httpbody에 username,password를 들고온다.
+그럼 원래라면은 이 body데이터를 낚아체서 IOC컨테이너에 등록돼 있는 userDetailsService를 사용해서 로그인을 진행합니다.
+하지만 현제 프로젝트에 auth패키지에있는 PrincipalDetailsService클래스가userDetailsService를 implment가
+돼있기때문에 IOC입장에서는 PrincipalDetailsService가 userDetailsService와 타입이 똑같기 때문에 IOC에 등록할때
+PrincipalDetailsService를 등록해버립니다.
+
+- Spring Security는 기본적으로 /login,/logout 을 가지고있습니다.
+
+
+```
+
 ## AuthController @Service사용하기
 ```
 AuthController에서 AuthService클래스파일을 di(의존성주입)을 시킨다.
