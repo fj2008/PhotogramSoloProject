@@ -25,7 +25,7 @@ public class User {
   
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)//번호 증가 정략이 데이터베이스를 따라간다.
-	private Long id;
+	private int id;
 	
 	@Column(length = 20,unique = true)//unique제약조건이 걸려서 아이디 중복시 가입이안된다.
 	private String username;
