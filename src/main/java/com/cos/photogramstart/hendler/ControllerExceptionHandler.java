@@ -1,13 +1,15 @@
 package com.cos.photogramstart.hendler;
 
-import java.util.Map;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cos.photogramstart.hendler.ex.CustomValidationApiException;
 import com.cos.photogramstart.hendler.ex.CustomValidationException;
 import com.cos.photogramstart.util.Script;
+import com.cos.photogramstart.web.dto.CMRespDto;
 
 
 @RestController
@@ -20,6 +22,13 @@ public class ControllerExceptionHandler {
 	public String validationException(CustomValidationException e) {
 		
 		return Script.back(e.getErrorMap().toString());
+	}
+	
+	
+	@ExceptionHandler(CustomValidationApiException.class)
+	public ResponseEntity<?> validationException(CustomValidationApiException e) {
+		
+		return new ResponseEntity<>(new CMRespDto<>(-1,e.getMessage(), e.getErrorMap()),HttpStatus.BAD_REQUEST);
 	}
 
 }
