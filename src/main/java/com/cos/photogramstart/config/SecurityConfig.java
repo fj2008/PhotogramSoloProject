@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//현제 서버에서는 csrf토큰을 사용하지 않는다.
 		http.csrf().disable();
 		http.authorizeRequests()
-			.antMatchers("/", "/user/**","/image/**","/subscribe/**","/comment/**").authenticated()
+			.antMatchers("/", "/user/**","/image/**","/subscribe/**","/comment/**","/api/**").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
