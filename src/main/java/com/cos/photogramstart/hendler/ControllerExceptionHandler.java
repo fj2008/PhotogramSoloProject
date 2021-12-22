@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.photogramstart.hendler.ex.CustomApiException;
+import com.cos.photogramstart.hendler.ex.CustomException;
 import com.cos.photogramstart.hendler.ex.CustomValidationApiException;
 import com.cos.photogramstart.hendler.ex.CustomValidationException;
 import com.cos.photogramstart.util.Script;
@@ -30,6 +31,15 @@ public class ControllerExceptionHandler {
 		
 		
 	}
+	
+	@ExceptionHandler(CustomException.class)
+	public String exception(CustomException e) {
+		
+	return Script.back(e.getMessage());
+		
+		
+	}
+	
 	
 	
 	@ExceptionHandler(CustomValidationApiException.class)

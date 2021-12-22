@@ -13,11 +13,35 @@
 - Spring Web
 - oauth2-client
 
+### sevice단에서 DB에 변형을 줄때 왜 @Transactional을 습관처럼 꼭 걸어줘야할까?
+```
+일의 최소 단위를 트렌젝션이라고 한다.
+이때 왜 @Transactional를 타면 어떤일이 일어나냐면
+트렌잭션을 수행하던도중에 오류가나면 트렌젝션 자체를 롤백을해주기때문에 큰 문제가 생길 일을 막아 줄 수 있다.
+
+그럼 select할때도 @Transactional을 걸어줘야하는 이유가 뭘까
+
+영속성 컨텍스트는 sevice가 끝나는 시점에 변경된 오브젝트를 감지를한다.(감지된다면 db에 자동 flush(더티체킹))
+@Transactional(readOnly =true)를 걸게되면 더티체킹을하지않고 읽기전용 트렌젝션이 된다.
+```
+
+
+
+### yml설정시에 open in view란?
+```
+디스패쳐가 컨트롤러를 라우팅해 주고 컨트롤러 내부적인 코드에서 컬랙션인 필드를 select할때는
+스프링의 기본 전략이 LAZY로딩일 경우에는 db에서 최초에는 컬렉션 필드를 select해서 가져서 오지 않고
+getter가 호출될때 가져오는데 컨트롤러로 오기전에 session이 끊기기때문에 DB에 select할수 없어서 -nosession오류가난다.
+open in view가 true로 돼있으면 컨트롤러까지 session이 열려있기때문에 view단에서도 lazyloding이 가능해진다.
+
+```
+
 
 ## 이미지 업로드 유효성검사하기
 ```
 이미지 업로드시에 이미지는 꼭 들어와야하는 데이터이기때문에 유효성검사를 해야한다.
-이때 @NOTBLANK가 MultipartFile타입에는 적용이 되지 않기때문에
+이때 @NOTBLANK가 MultipartFile타입에는 적용이 되지 않기때문에 컨트롤러딴에서 벨리데이션 체크를 했습니다.
+만약에 이미지를 넣지않았을때 직접coustom한 exception을 사용해서 처리했습니다.
 ```
 
 ## yml에 키값 정의해서 벨류값 가져오기
