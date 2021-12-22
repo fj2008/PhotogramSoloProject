@@ -53,7 +53,7 @@ public class User {
 	//mappedBy: 나는 연관관계의 주인이아니다. 그러므로 테이블에 컬럼만들지마
 	//Lazy= User를 select할때 해당 userId로 등록된 image들을 가져오지마 -- 대신 getter호출될때 가져와!
 	//EAGER =user를 slelct할때 해당 userid로 등록된 image들을 전부 join해서 가져와!
-	@JsonIgnoreProperties("user")
+	@JsonIgnoreProperties({"user"})
 	@OneToMany(mappedBy = "user" ,fetch = FetchType.LAZY)
 	private List<Image> images;
 	
