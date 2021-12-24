@@ -13,6 +13,25 @@
 - Spring Web
 - oauth2-client
 
+
+### 구독정보를 검색해주는 쿼리 (스칼라서브쿼리, 조인 사용)
+```
+구독정보를 알려주는 모달창에서 데이터를 뿌리기위해서는 까다로운 쿼리가 필요하다 왜냐하면
+user정보도 있고 구독여부 정보와 사용자와 중복 여부까지 체크를 해야 하기 때문입니다.
+그래서 다음과 같은 쿼리를 짜서 해결했습니다.
+ 
+SELECT u.id, u.username , u.profileImageUrl, 
+SELECT true FROM subscribe WHERE fromUserId = 2 AND toUserId =u.id) subscribeState,
+(2=u.id) equalUserState
+FROM user u INNER JOIN subscribe s
+ON u.id = s.toUserId
+WHERE s.fromUserId = 2;
+
+
+스칼라 서브 쿼리( 단일행을 리턴해야함!!)
+select절에 select가 한번 더 나오는 것을 스칼라 서브 쿼리라고 한다.
+```
+
 ##view페이지에서 연산하는것은 좋은 방법이 아니다. 모든 데이터를 만들어서 view로 가야한다.
 ```
 프로필페이지에서 el표현식으로 데이터를 뿌릴때 연산을해서 뿌려지는방식은 좋은방식이 아니다.
