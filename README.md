@@ -20,13 +20,13 @@
 
 ```
 
-### sevice단에서 DB에 변형을 줄때 왜 @Transactional을 습관처럼 꼭 걸어줘야할까?
+### service단에서 DB에 변형을 줄때 왜 @Transactional을 습관처럼 꼭 걸어줘야할까?
 ```
 일의 최소 단위를 트렌젝션이라고 한다.
-이때 왜 @Transactional를 타면 어떤일이 일어나냐면
+Service를 하는 파일에서 DB에 변형을 주는 행위를 만들때 @Transactional가 있으면 어떤일이 일어날까?
 트렌잭션을 수행하던도중에 오류가나면 트렌젝션 자체를 롤백을해주기때문에 큰 문제가 생길 일을 막아 줄 수 있다.
 
-그럼 select할때도 @Transactional을 걸어줘야하는 이유가 뭘까
+그럼 select할때도 @Transactional을 걸어줘야하는 이유가 뭘까?
 
 영속성 컨텍스트는 sevice가 끝나는 시점에 변경된 오브젝트를 감지를한다.(감지된다면 db에 자동 flush(더티체킹))
 @Transactional(readOnly =true)를 걸게되면 더티체킹을하지않고 읽기전용 트렌젝션이 된다.
