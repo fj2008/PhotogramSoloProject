@@ -46,8 +46,8 @@ function subscribeInfoModalOpen(pageUserId) {
 		dataType: "json"
 	}).done(res => {
 		console.log(res.data);
-		
-		res.data.forEach((u)=>{
+
+		res.data.forEach((u) => {
 			let item = getSubscribeModalItem(u);
 			$("#subscribeModalList").append(item);
 		});
@@ -57,7 +57,7 @@ function subscribeInfoModalOpen(pageUserId) {
 }
 
 function getSubscribeModalItem(u) {
-	
+
 	let item = `<div class="subscribe__item" id="subscribeModalItem-${u.id}">
 	<div class="subscribe__img">
 		<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'" />
@@ -66,11 +66,11 @@ function getSubscribeModalItem(u) {
 		<h2>${u.username}</h2>
 	</div>
 	<div class="subscribe__btn">`;
-	
-	if(!u.equalUserState){ // 동일 유저가 아닐 때 버튼이 만들이 만들어져야함
-		if(u.subscribeState){ // 구독한 상태
+
+	if (!u.equalUserState) { // 동일 유저가 아닐 때 버튼이 만들이 만들어져야함
+		if (u.subscribeState) { // 구독한 상태
 			item += `<button class="cta blue" onclick="toggleSubscribe(${u.id}, this)">구독취소</button>`;
-		}else{ // 구독안한 상태
+		} else { // 구독안한 상태
 			item += `<button class="cta" onclick="toggleSubscribe(${u.id}, this)">구독하기</button>`;
 		}
 	}
@@ -84,15 +84,15 @@ function getSubscribeModalItem(u) {
 
 // (3) 유저 프로파일 사진 변경 (완)
 function profileImageUpload(pageUserId, principalId) {
-	
+
 	//console.log("pageUserId", pageUserId);
 	//console.log("principalId", principalId);
-	
-	if(pageUserId != principalId){
+
+	if (pageUserId != principalId) {
 		alert("프로필 사진을 수정할 수 없는 유저입니다.");
 		return;
 	}
-	
+
 	$("#userProfileImageInput").click();
 
 	$("#userProfileImageInput").on("change", (e) => {
@@ -102,14 +102,14 @@ function profileImageUpload(pageUserId, principalId) {
 			alert("이미지를 등록해야 합니다.");
 			return;
 		}
-		
+
 		// 서버에 이미지를 전송
 		let profileImageForm = $("#userProfileImageForm")[0];
 		console.log(profileImageForm);
-		
+
 		// FormData 객체를 이용하면 form 태그의 필드와 그 값을 나타내는 일련의 key/value 쌍을 담을 수 있다.
 		let formData = new FormData(profileImageForm);
-		
+
 		$.ajax({
 			type: "put",
 			url: `/api/user/${principalId}/profileImageUrl`,
@@ -118,14 +118,14 @@ function profileImageUpload(pageUserId, principalId) {
 			processData: false,  // 필수: contentType을 false로 줬을 때 QueryString 자동 설정됨. 해제
 			enctype: "multipart/form-data",
 			dataType: "json"
-		}).done(res=>{
+		}).done(res => {
 			// 사진 전송 성공시 이미지 변경
 			let reader = new FileReader();
 			reader.onload = (e) => {
 				$("#userProfileImage").attr("src", e.target.result);
 			}
 			reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
-		}).fail(error=>{
+		}).fail(error => {
 			console.log("오류", error);
 		});
 
