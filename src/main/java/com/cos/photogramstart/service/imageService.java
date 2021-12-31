@@ -3,10 +3,11 @@ package com.cos.photogramstart.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +28,8 @@ public class imageService {
 	//영속성 컨텍스에서 변경감지를해서, 더티체킹후 flush(반영)을 하게되는데
 	//readOnly = true를하면 DB에 반영을 하지 않게되서 프로그램이 더 깔끔해진다.
 	@Transactional(readOnly = true)
-	public List<Image> 이미지스토리(int principalId){
-		List<Image> images = imageRepository.mStroy(principalId);
+	public Page<Image> 이미지스토리(int principalId, Pageable pageable){
+		Page<Image> images = imageRepository.mStroy(principalId, pageable);
 		return images;
 	}
 	
